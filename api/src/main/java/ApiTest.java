@@ -1,18 +1,27 @@
 import com.jayway.restassured.response.Response;
 import com.jcabi.matchers.RegexMatchers;
+import com.jayway.restassured.response.Response;
+import com.jcabi.matchers.RegexMatchers;
 import org.hamcrest.MatcherAssert;
 import org.junit.Test;
 import java.util.List;
 import static com.jayway.restassured.RestAssured.given;
 
-
 public class ApiTest{
 
+String baseUrl = "https://msk.tele2.ru";
+String path = "/api/roaming/regions";
+String param = "?siteId=siteMSK";
+    
     @Test
     public void firstTest() {
    
-        Response response = given()
-                .get("https://msk.tele2.ru/api/roaming/regions?siteId=siteMSK")
+         Response response = (Response) given()
+                .baseUri("https://msk.tele2.ru")
+                .basePath("/api/roaming/regions")
+                .queryParam("siteId,siteMSK")
+                .then()
+                .get(baseUrl+path+param)
                 .then()
                 .contentType("application/json")
                 .extract()
